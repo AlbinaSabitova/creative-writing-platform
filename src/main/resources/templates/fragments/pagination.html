@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="pagination(currentPage, totalPages, baseUrl)" class="pagination">
+    <div th:if="${totalPages > 1}">
+        <!-- First Page -->
+        <a th:if="${currentPage > 0}" th:href="@{${baseUrl + '&page=0'}}">Начало</a>
+
+        <!-- Previous Page -->
+        <a th:if="${currentPage > 0}" th:href="@{${baseUrl + '&page=' + (currentPage - 1)}}">Предыдущая</a>
+
+        <!-- Page Numbers -->
+        <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+            <a th:if="${i == currentPage}" class="active" th:text="${i + 1}"></a>
+            <a th:unless="${i == currentPage}" th:href="@{${baseUrl + '&page=' + i}}" th:text="${i + 1}"></a>
+        </span>
+
+        <!-- Next Page -->
+        <a th:if="${currentPage < totalPages - 1}" th:href="@{${baseUrl + '&page=' + (currentPage + 1)}}">Следующая</a>
+
+        <!-- Last Page -->
+        <a th:if="${currentPage < totalPages - 1}" th:href="@{${baseUrl + '&page=' + (totalPages - 1)}}">Конец</a>
+    </div>
+</div>
+</body>
+</html>

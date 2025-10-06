@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap&subset=cyrillic" rel="stylesheet">
+    <link th:href="@{/styles.css(v=1.0)}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/messages :: messages}"></div>
+
+<main class="auth-container">
+    <div class="split-layout">
+        <div class="left-column">
+            <div class="image-container">
+                <img th:src="@{/images/rabbit.jpg}" class="background-image">
+                <div class="comic-bubble" onclick="toggleText(this)">Подсказка</div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div><a href="#" id="showRegisterModal" class="golden-key-link">
+                <img src="/images/key.png" class="golden-key">
+            </a></div>
+            <div class="placeholder-login">
+                <form th:action="@{/auth/login}" method="post" class="auth-form">
+                    <div class="form-group">
+                        <label for="email">Почта</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Пароль</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+
+                    <button type="submit" class="btn-login">Войти</button>
+                </form>
+                <p><a href="/forgot-password">Забыли пароль?</a></p>
+                <p><a href="/">На главную</a></p>
+            </div>
+        </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="modalRegisterForm" class="auth-form">
+                <div class="form-group">
+                    <label for="modalName">Имя</label>
+                    <input type="text" id="modalName" name="name" required minlength="3">
+                </div>
+
+                <div class="form-group">
+                    <label for="modalSurname">Фамилия</label>
+                    <input type="text" id="modalSurname" name="surname" required minlength="3">
+                </div>
+
+                <div class="form-group">
+                    <label for="modalEmail">Почта</label>
+                    <input type="email" id="modalEmail" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="modalPassword">Пароль</label>
+                    <input type="password" id="modalPassword" name="password" required minlength="8">
+                </div>
+
+                <div class="form-group">
+                    <label for="modalImageUrl">Фото</label>
+                    <input type="url" id="modalImageUrl" name="imageUrl">
+                </div>
+
+                <button type="submit" class="btn">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+    </div>
+</main>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
+

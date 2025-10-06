@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Темы</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap&subset=cyrillic" rel="stylesheet">
+    <link th:href="@{/styles.css(v=1.0)}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/messages :: messages}"></div>
+<main class="container">
+    <h1>Тексты на тему:"<span th:text="${topicName}"></span>"</h1>
+    <a href="/">На главную</a>
+    <div th:if="${texts.empty}">
+        <p>Ничего не найдено</p>
+    </div>
+    <div th:each="text : ${texts}" class="text-card">
+        <h3><a th:href="@{/text/view/{id}(id=${text.id})}" th:text="${text.title}"></a></h3>
+        <p class="meta">
+            <span th:text="${text.author.fullName}"></span> |
+            <span th:text="${#temporals.format(text.publicationDate, 'dd MMM yyyy')}"></span>
+        </p>
+        <div class="content-preview" th:text="${#strings.abbreviate(text.content, 150)}"></div>
+        <div class="topics">
+                <span th:each="topic : ${text.topics}" class="topic"
+                      th:text="${topic.name}"></span>
+        </div>
+    </div>
+    <div th:replace="~{fragments/pagination :: pagination(
+    currentPage=${currentPage},
+    totalPages=${totalPages},
+    baseUrl=${'/topic?name=' + topicName}
+)}"></div>
+</main>
+</body>
+</html>

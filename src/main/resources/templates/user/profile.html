@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Мой профиль</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap&subset=cyrillic" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/styles.css(v=1.0)}" rel="stylesheet">
+</head>
+<body>
+<!--<div th:replace="~{fragments/messages :: messages}"></div>-->
+
+<main class="container-fluid">
+    <div class="row min-vh-100">
+        <div class="col-12 col-md-6 d-flex flex-column">
+
+    <div class="texts-container">
+        <a href="/">На главную</a>
+        <h1 th:text="${user?.name + ' ' + user?.surname}"></h1>
+        <img th:if="${user?.imageUrl}" th:src="${user.imageUrl}" class="profile-image">
+    <div th:if="${texts != null and !texts.empty}">
+        <h3>Мои тексты</h3>
+        <div th:each="text : ${texts}" class="text-card">
+            <h3><a th:href="@{/text/view/{id}(id=${text.id})}" th:text="${text.title}"></a></h3>
+
+            <div class="status-badges">
+                    <span th:if="${text.status == T(com.top.creativewritingplatform.models.TextStatus).APPROVED}"
+                          class="status-badge approved">✅</span>
+                <span th:if="${text.status == T(com.top.creativewritingplatform.models.TextStatus).PENDING}"
+                      class="status-badge pending">⏳</span>
+                <div th:if="${text.status == T(com.top.creativewritingplatform.models.TextStatus).REJECTED}">
+                    <span class="status-badge rejected">❌</span>
+                    <p th:if="${text.rejectionReason}" class="rejection-reason">
+                        <span th:text="${text.rejectionReason}"></span></p>
+                </div>
+            </div>
+
+            <p class="meta">
+                <span th:text="${#temporals.format(text.publicationDate, 'dd MMM yyyy')}"></span>
+                • <span th:text="${text.likes}"></span> ❤️</p>
+        </div>
+    </div>
+</div>
+        </div>
+            <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+    <a href="/text/create"><img src="/images/publish.jpg" class="img-fluid rounded" style="max-height: 384px;"></a></div>
+    </div>
+</main>
+</body>
+</html>

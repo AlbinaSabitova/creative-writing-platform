@@ -1,0 +1,808 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Great Vibes' !important;
+    font-size: x-large;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    margin: 0;
+    background-image: url('/images/kraft-paper.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    text-align: flex-start;
+}
+
+.container-owl {
+    background-image: url('/images/owl.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Text card styles */
+.text-list {
+    margin-top: 30px;
+    border-bottom: 3px black;
+}
+
+.text-card {
+    background: none;
+    border-color: black;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.text-card h3 {
+    margin-top: 0;
+}
+
+.text-card h3 a {
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+.text-card h3 a:hover {
+    text-decoration: underline;
+}
+
+.topics {
+    margin: 10px 0;
+}
+
+.topic {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.topic:hover {
+    color: crimson;
+    font-weight: bold;
+}
+
+/* Text view styles */
+.text-view {
+    border-radius: 5px;
+    padding: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.text-view h1 {
+    margin-top: 0;
+}
+
+.text-image {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.text-image img {
+    max-width: 60%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.content {
+    margin-top: 20px;
+}
+
+.likes {
+    margin-top: 10px;
+}
+
+.like-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.like-btn:hover {
+    background: #2980b9;
+}
+
+/* Form styles */
+.text-form {
+    background: white;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="url"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.form-group textarea {
+    min-height: 300px;
+}
+
+.error {
+    color: #e74c3c;
+    font-size: 0.9rem;
+}
+
+.btn {
+    background: darkred;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-family: 'Great Vibes';
+    font-size: 1rem;
+}
+
+.btn:hover {
+    background-color: rosybrown;
+}
+
+.btn-login {
+background: darkred;
+    color: #ffeaa7;
+}
+.bookshelf-container {
+    background: url('/images/bookshelf.jpg') center/contain no-repeat;
+    background-color: transparent;
+    min-height: 300px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 30px; /* Space for books */
+}
+
+.bookshelf {
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+}
+.book {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin: 0;
+}
+
+.book-spine {
+    min-width: 50px;;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: 'Comic Sans MS', cursive;
+    font-weight: bold;
+    color: white;
+    padding: 15px 2px;
+    box-shadow: 3px 0 5px rgba(0,0,0,0.3);
+    background: crimson;
+}
+
+.book-top {
+    position: absolute;
+    top: -6px;
+    width: 50px;
+    height: 10px;
+    background: linear-gradient(45deg, #fdf6e3, #f5e8c9);
+    border-radius: 4px 4px 0 0;
+}
+
+.book:hover {
+    transform: translateY(-10px);
+}
+
+.flash-message {
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.flash-message.success {
+    background: lightgreen;
+    color: white;
+}
+
+.flash-message.error {
+    background: deeppink;
+    color: white;
+}
+
+.status {
+    font-size: 0.8em;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+.status.pending {
+    background: #f39c12;
+    color: white;
+}
+
+.status.rejected {
+    background: #e74c3c;
+    color: white;
+}
+
+.char-counter {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    text-align: right;
+    margin-top: 5px;
+}
+
+.auth-form {
+    background-image: url('/images/kraft-paper.jpg');
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.auth-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat .count {
+    font-size: 2rem;
+    font-weight: bold;
+    display: block;
+}
+
+.stat .label {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn.approve {
+    background: #2ecc71;
+}
+
+.btn.reject {
+    background: #e74c3c;
+}
+
+.btn.edit {
+    background: #3498db;
+    display: inline-block;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+.search-form {
+    margin: 20px 0;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+}
+
+.search-input {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    width: 300px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.content-preview {
+    color: #666;
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+    .search-input {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .search-form .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    gap: 0.5rem;
+}
+
+.pagination a {
+    padding: 0.5rem 1rem;
+    border: black;
+    border-radius: 4px;
+    border-width: medium;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.pagination a:hover {
+    border-color: black;
+    border-width: thick;
+}
+
+.pagination a.active {
+    background: #721c24;
+}
+
+.profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 20px;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.texts-container {
+    max-width: 500px;
+    width: 100%;
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.text-card {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: black;
+}
+
+.text-card:last-child {
+    border-bottom: none;
+}
+
+.status-badges {
+    margin: 10px 0;
+}
+
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.status-badge.approved {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.status-badge.rejected {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.text-card {
+    padding: 15px;
+    border-bottom: black;
+    margin-bottom: 10px;
+}
+
+.text-card:last-child {
+    border-bottom: none;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/kraft-paper.jpg');
+}
+
+.modal-content {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0; /* Remove auto margin */
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh; /* Limit height */
+    overflow-y: auto; /* Enable scrolling if needed */
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #aaa;
+}
+
+.rejection-reason-input {
+    width: 300px;
+    padding: 5px;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+    margin-right: 5px;
+}
+
+.action-form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.auth-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    background-color: black;
+}
+
+.split-layout {
+    display: flex;
+    height: 100%;
+    max-height: 100%;
+    width: 100%;
+    max-width: 100%;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+}
+
+.background-image {
+    width: 100%;
+    height: auto;
+}
+
+.right-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.comic-bubble {
+    position: absolute;
+    top: 30px;
+    right: 100px;
+    padding: 20px 25px;
+    background-color: #fff;
+    border: 3px solid #000;
+    border-radius: 25px;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    max-width: 200px;
+    text-align: center;
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.1);
+
+    /* Puffy cloud effect */
+    background-image: radial-gradient(circle at 20px 15px, #fff 25%, transparent 26%),
+    radial-gradient(circle at 40px 10px, #fff 20%, transparent 21%),
+    radial-gradient(circle at 60px 15px, #fff 25%, transparent 26%);
+}
+
+/* Puffy tail on LEFT side */
+.comic-bubble::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -20px; /* Position on left side */
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    border-right-color: #000; /* Tail color */
+    border-left: 0;
+}
+
+/* Inner white tail */
+.comic-bubble::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -16px; /* Slightly inside the black tail */
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border: 13px solid transparent;
+    border-right-color: #fff; /* White fill */
+    border-left: 0;
+    z-index: 1;
+}
+
+/* Hover effects */
+.comic-bubble:hover {
+    transform: translateY(-5px);
+    box-shadow: 8px 8px 0 rgba(0,0,0,0.15);
+    background-color: #ffffcc; /* Light yellow on hover */
+}
+
+.comic-bubble:active {
+    transform: translateY(2px);
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+}
+
+@media (max-width: 992px) {
+    .split-layout {
+        flex-direction: column;
+    }
+
+    .left-column,
+    .right-column {
+        min-height: 50vh;
+        padding: 20px;
+    }
+
+    .comic-bubble {
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        font-size: 16px;
+    }
+
+    .comic-bubble::after {
+        border-width: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .comic-bubble {
+        top: 15px;
+        right: 15px;
+        padding: 12px 16px;
+        font-size: 14px;
+        max-width: 150px;
+    }
+
+    .comic-bubble::after {
+        border-width: 10px;
+    }
+}
+
+.golden-key-link {
+    transition: transform 0.3s ease;
+    border-radius: 50%;
+}
+
+.golden-key {
+    width: 200px;
+    height: auto;
+    transition: all 0.5s ease;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
+    border-radius: 40%;
+}
+
+.golden-key:hover {
+    filter:
+            drop-shadow(0 0 20px rgba(255, 215, 0, 0.9))
+            drop-shadow(0 0 40px rgba(255, 215, 0, 0.7))
+            brightness(1.3)
+            contrast(1.2);
+    transform: scale(1.1);
+    animation: glitter 0.8s ease-in-out infinite;
+    border-radius: 45%;
+}
+
+@keyframes glitter {
+    0%, 100% {
+        filter:
+                drop-shadow(0 0 20px rgba(255, 215, 0, 0.9))
+                drop-shadow(0 0 40px rgba(255, 215, 0, 0.7))
+                brightness(1.3)
+                contrast(1.2);
+    }
+    50% {
+        filter:
+                drop-shadow(0 0 30px rgba(255, 215, 0, 1))
+                drop-shadow(0 0 50px rgba(255, 215, 0, 0.9))
+                brightness(1.5)
+                contrast(1.4);
+        transform: scale(1.12) rotate(3deg);
+    }
+}
+
+/* Add pulsating effect */
+.golden-key:hover {
+    animation: glitter 0.8s ease-in-out infinite, pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1.1); }
+    50% { transform: scale(1.15); }
+}
+
+.auth-image-link,
+.auth-image-form {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.auth-image-link img,
+.auth-image-form img {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.auth-image-link:hover img,
+.auth-image-form:hover img {
+    transform: scale(1.1);
+}
+
+     /* Share Button Styles */
+ .share-container {
+     position: relative;
+     display: inline-block;
+     margin-left: 15px;
+ }
+
+.share-toggle {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.share-toggle:hover {
+    background: #e9ecef;
+    transform: scale(1.1);
+}
+
+.share-toggle i {
+    color: #6c757d;
+    font-size: 16px;
+}
+
+.share-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    z-index: 1000;
+    margin-top: 5px;
+    min-width: 180px;
+}
+
+.share-menu.active {
+    display: flex;
+}
+
+.share-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.share-btn:hover {
+    transform: scale(1.1);
+}
+
+.whatsapp { background: #25D366; color: white; }
+.telegram { background: #0088cc; color: white; }
+.vk { background: #4C75A3; color: white; }
+.copy-link { background: #6c757d; color: white; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .share-menu {
+        left: -50px;
+    }
+}

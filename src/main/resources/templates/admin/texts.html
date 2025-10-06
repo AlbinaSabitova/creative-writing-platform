@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Админская</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap&subset=cyrillic" rel="stylesheet">
+    <link th:href="@{/styles.css(v=1.0)}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/messages :: messages}"></div>
+
+<main class="container">
+    <a href="/">На главную</a>
+    <div id="editModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Редактирование</h2>
+            <form id="editForm" method="post">
+                <input type="hidden" id="editTextId" name="id">
+
+                <div class="form-group">
+                    <label for="editTitle">Заглавие</label>
+                    <input type="text" id="editTitle" name="title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editContent">Содержание</label>
+                    <textarea id="editContent" name="content" rows="10" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="editTopics">Темы</label>
+                    <input type="text" id="editTopics" name="topics">
+                </div>
+
+                <button type="submit" class="btn">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <div th:if="${pendingTexts.empty}">
+        <p>Все тексты проверены.</p>
+    </div>
+
+    <div th:each="text : ${pendingTexts}" class="text-card admin-text-card">
+        <h3 th:text="${text.title}"></h3>
+        <p class="meta">
+            <span th:text="${text.author.fullName}"></span> |
+            <span th:text="${#temporals.format(text.publicationDate, 'dd MMM yyyy HH:mm')}"></span>
+        </p>
+
+        <div class="content-preview" th:text="${#strings.abbreviate(text.content, 200)}"></div>
+
+        <div class="topics">
+                <span th:each="topic : ${text.topics}" class="topic"
+                      th:text="${topic.name}"></span>
+        </div>
+
+        <div class="admin-actions">
+            <button class="btn btn-edit"
+                    th:data-id="${text.id}"
+                    th:data-title="${text.title}"
+                    th:data-content="${text.content}"
+                    th:data-topics="${#strings.listJoin(text.topics.![name], ',')}">
+                ✏️
+            </button>
+
+            <form th:action="@{'/admin/texts/' + ${text.id} + '/approve'}" method="post" class="action-form">
+                <button type="submit" class="btn btn-approve">✅</button>
+            </form>
+
+            <form th:action="@{'/admin/texts/' + ${text.id} + '/reject'}" method="post" class="action-form">
+    <textarea name="rejectionReason"
+              placeholder="Причина отклонения"
+              class="rejection-reason-input"
+              rows="2"></textarea>
+                <button type="submit" class="btn btn-reject">❌</button>
+            </form>
+            <div id="previewModal" class="modal" style="display: none;">
+                <div class="modal-content large-modal">
+                    <span class="close">&times;</span>
+                    <h2>Text Preview</h2>
+                    <div id="previewContent">
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-view" th:data-id="${text.id}">👁️</button>
+        </div>
+    </div>
+</main>
+<script src="/js/admin.js"></script>
+</body>
+</html>

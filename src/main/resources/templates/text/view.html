@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${text?.title}"></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap&subset=cyrillic" rel="stylesheet">
+    <link th:href="@{/styles.css(v=1.0)}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/messages :: messages}"></div>
+
+<main class="container">
+    <a href="/">На главную</a>
+  <article class="text-view" th:if="${text != null}">
+    <h1 th:text="${text.title}"></h1>
+
+    <div class="meta">
+      <span th:text="${text.author?.fullName}"></span> •
+      <span th:text="${#temporals.format(text.publicationDate, 'dd MMM yyyy')}"></span>
+
+        <!-- Share Button -->
+        <div class="share-container">
+            <button class="share-toggle" onclick="toggleShareMenu()">
+                <i class="fas fa-share-alt"></i> <!-- Three dots icon -->
+            </button>
+            <div class="share-menu" id="shareMenu">
+                <a th:href="@{'https://api.whatsapp.com/send?text=' + ${text.title} + ' ' + ${currentUrl}}"
+                   target="_blank" class="share-btn whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a th:href="@{'https://t.me/share/url?url=' + ${currentUrl} + '&text=' + ${text.title}}"
+                   target="_blank" class="share-btn telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a th:href="@{'https://vk.com/share.php?url=' + ${currentUrl} + '&title=' + ${text.title} + '&description=' + ${text.content.substring(0, 100)} + '...'}"
+                   target="_blank" class="share-btn vk">
+                    <i class="fab fa-vk"></i>
+                </a>
+                <button class="share-btn copy-link" onclick="copyToClipboard()">
+                    <i class="fas fa-link"></i>
+                </button>
+            </div>
+        </div>
+
+      <div class="topics">
+        <span th:each="topic : ${text.topics ?: {}}" class="topic"
+              th:text="${topic?.name}"></span>
+      </div>
+
+        <div th:if="${currentUser != null}">
+            <form th:action="@{/text/like}" method="post">
+                <input type="hidden" name="textId" th:value="${text.id}">
+                <button type="submit" th:classappend="${hasLiked} ? 'liked' : ''">
+                    <span th:if="${hasLiked}">❤️</span>
+                    <span th:unless="${hasLiked}">🤍</span>
+                    (<span th:text="${text.likes}"></span>)
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <div th:if="${text.imageUrl}" class="text-image">
+      <img th:src="${text.imageUrl}" alt="Text image">
+    </div>
+
+    <div class="content" th:utext="${text.content}"></div>
+  </article>
+
+  <div th:if="${text == null}">
+    <p>Text not found or unavailable.</p>
+  </div>
+</main>
+    <script>
+        function toggleShareMenu() {
+            const shareMenu = document.getElementById('shareMenu');
+            shareMenu.classList.toggle('active');
+        }
+
+        function copyToClipboard() {
+            const currentUrl = window.location.href;
+            navigator.clipboard.writeText(currentUrl).then(() => {
+                alert('Ссылка скопирована');
+            });
+        }
+
+        // Close share menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const shareContainer = document.querySelector('.share-container');
+            const shareMenu = document.getElementById('shareMenu');
+
+            if (!shareContainer.contains(event.target) && shareMenu.classList.contains('active')) {
+                shareMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание текста</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap&subset=cyrillic" rel="stylesheet">
+    <link th:href="@{/styles.css(v=1.0)}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/messages :: messages}"></div>
+
+<main class="container">
+    <a href="/user/profile">Вернуться в профиль</a>
+    <form th:action="@{/text/create}" method="post" class="text-form" th:object="${textDTO}">
+        <div class="form-group">
+            <label for="title">Заголовок</label>
+            <input type="text" id="title" th:field="*{title}" required>
+            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="content">Содержание (1000-20000 символов)</label>
+            <textarea id="content" th:field="*{content}" rows="15" required></textarea>
+            <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="error"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="imageUrl">Изображение (по желанию)</label>
+            <input type="url" id="imageUrl" th:field="*{imageUrl}">
+        </div>
+
+        <div class="form-group">
+            <label for="topics">Темы (через запятую, как минимум одна)</label>
+            <input type="text" id="topics" name="topics" placeholder=" ">
+            <span th:if="${#fields.hasErrors('topics')}" th:errors="*{topics}" class="error"></span>
+        </div>
+
+        <button type="submit" class="btn">Отправить</button>
+    </form>
+</main>
+<script src="/js/main.js"></script>
+</body>
+</html>
+
