@@ -141,7 +141,7 @@ public class TextService {
                 .replace('a', 'а').replace('e', 'е').replace('o', 'о')
                 .replace('c', 'с').replace('p', 'р').replace('x', 'х')
                 .replace('y', 'у').replace('k', 'к').replace('m', 'м')
-                .replace('t', 'т').replace('h', 'х').replace('b', 'в')
+                .replace('t', 'т').replace('h', 'х').replace('b', 'в').replace('u', 'и')
 
                 // Phonetic equivalents (sound-alike)
                 .replace('v', 'в')  // v → в (sound: v)
@@ -187,7 +187,7 @@ public class TextService {
 
         if (containsForbiddenWords(textDTO.getContent()) || containsForbiddenWords(textDTO.getTitle())) {
             text.setStatus(TextStatus.REJECTED);
-            text.setRejectionReason("⚠️Автоматически отклонено. Пожалуйста, исключите запрещённую лексику и отправьте текст снова.");
+            text.setRejectionReason("Автоматически отклонено. Пожалуйста, исключите запрещённую лексику и отправьте текст снова.");
         } else {
             text.setStatus(TextStatus.PENDING);
         }
@@ -210,4 +210,5 @@ public class TextService {
         }
         return topics;
     }
+
 }
