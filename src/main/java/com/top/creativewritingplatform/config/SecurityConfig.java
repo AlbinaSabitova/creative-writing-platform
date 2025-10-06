@@ -34,6 +34,12 @@ public class SecurityConfig {
                 .requestMatchers("/text/create", "/text/my", "/user/profile").authenticated()
                 .anyRequest().authenticated()
                 .and()
+              .logout(logout -> logout
+        .logoutUrl("/logout")  
+        .logoutSuccessUrl("/") 
+        .deleteCookies("jwtToken") 
+        .permitAll()
+    )
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
@@ -50,4 +56,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }
